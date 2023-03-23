@@ -5,3 +5,4 @@
   - [ ] Сделать глубокую генерацию index.ts/index.js, чтобы генерировало внутри директорий вложенных
 - [x] MacOS `.DS_Store` ignore
 - [ ] !!!Refactor
+- [ ] Generate Vue Page

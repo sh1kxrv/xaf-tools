@@ -69,16 +69,16 @@ export class IndexFileGenerator extends File {
   }
 
   private readdir(): string[] {
+    const included = /(.*(vue|tsx|jsx|js|ts))/g;
+    const excluded = ["index.js", "index.ts", "index.vue"];
     let files = _fs.readdirSync(this.processDirectory);
     if (files.length === 0) {
       vscode.window.showErrorMessage("Directory is empty!");
       return [];
     }
     files = files.filter(
-      (file: string) =>
-        file !== "index.ts" && file !== ".DS_Store" && file !== "index.js"
+      (file: string) => included.test(file) && !excluded.includes(file)
     );
-
     return files;
   }
 
