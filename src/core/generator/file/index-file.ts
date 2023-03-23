@@ -76,9 +76,14 @@ export class IndexFileGenerator extends File {
       vscode.window.showErrorMessage("Directory is empty!");
       return [];
     }
-    return files.filter(
-      (file: string) => included.test(file) && !excluded.includes(file)
-    );
+    return files.filter((file: string) => {
+      const fileStat = _fs.lstatSync(file);
+      return (
+        included.test(file) &&
+        !excluded.includes(file) &&
+        !fileStat.isDirectory()
+      );
+    });
   }
 
   generate() {
