@@ -77,11 +77,11 @@ export class IndexFileGenerator extends File {
       return [];
     }
     return files.filter((file: string) => {
-      const fileStat = _fs.lstatSync(file);
+      const fullPath = _path.resolve(this.processDirectory, file);
+      const fileStat = _fs.statSync(fullPath);
       return (
-        included.test(file) &&
-        !excluded.includes(file) &&
-        !fileStat.isDirectory()
+        (included.test(file) && !excluded.includes(file)) ||
+        fileStat.isDirectory()
       );
     });
   }
